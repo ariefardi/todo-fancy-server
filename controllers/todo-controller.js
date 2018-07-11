@@ -1,6 +1,6 @@
 const Model = require('../models/todo-model')
 // require('../models/user-model')
-
+const moment = require('moment')
 
 class Controller {
     static getTodos (req,res) {
@@ -13,14 +13,15 @@ class Controller {
             })
         })
         console.log('masuk ke getUsers')
-    } 
+    }
 
     static postTodo (req,res) {
         let obj = {
             todo: req.body.todo,
             deadline: req.body.deadline,
-            todoCreated: new Date(),
-            userTodo: req.body.userTodo
+            todoCreated: moment().format('LL'),
+            userTodo: req.body.userTodo,
+            status: req.body.status
         }
         console.log(obj)
         let todo = new Model(obj)
