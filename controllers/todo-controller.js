@@ -18,10 +18,13 @@ class Controller {
     static postTodo (req,res) {
         let obj = {
             todo: req.body.todo,
-            deadline: req.body.deadline,
+            deadline: moment().add(req.body.deadline, 'days').calendar(),
             todoCreated: moment().format('LL'),
             userTodo: req.body.userTodo,
-            status: req.body.status
+            status: req.body.status,
+            done: false,
+            description: req.body.description,
+            todoDone: 0
         }
         console.log(obj)
         let todo = new Model(obj)

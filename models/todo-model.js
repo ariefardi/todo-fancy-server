@@ -3,10 +3,13 @@ const Schema = mongoose.Schema
 
 let todoSchema = Schema({
     todo: String,
-    deadline: Number,
+    deadline: String,
     todoCreated: String,
     userTodo: {type: Schema.Types.ObjectId, ref: 'user'},
-    status: String
+    status: String,
+    done: Boolean,
+    description: String,
+    todoDone: Number
 },{timestamp: true})
 
 let todos = mongoose.model('todo',todoSchema)
