@@ -9,7 +9,6 @@ let todoSchema = Schema({
     status: String,
     done: Boolean,
     description: String,
-    todoDone: Number
 },{timestamp: true})
 
 let todos = mongoose.model('todo',todoSchema)

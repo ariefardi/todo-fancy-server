@@ -23,8 +23,7 @@ class Controller {
             userTodo: req.body.userTodo,
             status: req.body.status,
             done: false,
-            description: req.body.description,
-            todoDone: 0
+            description: req.body.description
         }
         console.log(obj)
         let todo = new Model(obj)
