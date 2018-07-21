@@ -66,6 +66,25 @@ class Controller {
             })
         })
     }
+    static updateDone (req,res) {
+        let id = req.params.id
+        let obj = {
+            done : true
+        }
+        
+        Model.findOneAndUpdate(id,obj)
+        .then(todo=> {
+            res.json({
+                message: 'berhasil update status',
+                todo
+            })
+        })
+        .catch(err=> {
+            res.json({
+                message: err.message
+            })
+        })
+    }
 }
 
 module.exports = Controller
