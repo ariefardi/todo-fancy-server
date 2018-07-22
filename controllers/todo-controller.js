@@ -72,7 +72,7 @@ class Controller {
             done : true
         }
         
-        Model.findOneAndUpdate(id,obj)
+        Model.findByIdAndUpdate(id,{done: true})
         .then(todo=> {
             res.json({
                 message: 'berhasil update status',
