@@ -12,6 +12,7 @@ class Controller {
             })
         })
     }
+
     static register(req,res){
         console.log('user register')
         let username = req.body.username
@@ -41,6 +42,49 @@ class Controller {
             }
         })
     }
+    static fbLogin (req,res){
+        let username = req.body.username
+        let email = req.body.email
+        let pass = req.body.password
+        Model.findOne({email})
+        .then(found=> {
+            if (found) {
+                const isPassword = bcrypt.compareSync(pass,found.password)
+                if (isPassword) {
+                    const token = jwt.sign({userId: found._id}, 'superfox')
+                    res.status(200).json({
+                        message: 'login success',
+                        token,
+                        found
+                    })  
+                }
+            }
+            else {
+                const salt = bcrypt.genSaltSync(7);
+                const hash = bcrypt.hashSync(pass, salt);
+                let password = hash;
+                Model.create({
+                    username: username,
+                    email: email,
+                    password: password
+                })
+                .then(user=>{
+                    const token = jwt.sign({userId: found._id}, 'superfox')
+                    res.status(200).json({
+                        message: 'register and login',
+                        token,
+                        user
+                    })
+                })
+                .catch(err=> {
+                    res.status(400).json({
+                        message: err
+                    })
+                })
+            }
+        })
+    }
+
     static login(req,res){
         console.log(req.body)
         Model.findOne({username: req.body.username})
