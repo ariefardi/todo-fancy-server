@@ -1,15 +1,17 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors')
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var todosRouter = require('./routes/todos');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors')
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const todosRouter = require('./routes/todos');
+const weatherRouter = require('./routes/weather')
+
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://arief:08november@ds121871.mlab.com:21871/todosdb')
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +27,7 @@ app.use(cors())
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/todos', todosRouter);
+app.use('/weather', weatherRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
